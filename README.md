@@ -2,6 +2,7 @@
 Image processing labs. Each method inside the Demo.java file applies a form of image processing to the image. 
 
 Methods added so far: 
+
 Week #2:
 Image Pixel Value Re-Scaling: Re-scaling all the pixel values in an image and displaying the image
 Image Pixel Value Shifting: Shifting all the pixel values in an image and displaying the image
