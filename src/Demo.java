@@ -237,7 +237,7 @@ public class Demo extends Component implements ActionListener {
         catch( Exception e )
         {
 
-            // e.printStackTrace();
+            e.printStackTrace();
             return null;
         }
     }
