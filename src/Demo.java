@@ -1548,5 +1548,6 @@ public class Demo extends Component implements ActionListener {
         f.add("North", panel);
         f.pack();
         f.setVisible(true);
+        System.out.println("Checking error.");
     }
 }
