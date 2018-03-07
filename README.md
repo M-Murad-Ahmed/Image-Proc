@@ -1,6 +1,6 @@
 # Image-Processing #
 
-##Image processing labs. Each method inside the Demo.java file applies a form of image processing to the image. ##
+## Image processing labs. Each method inside the Demo.java file applies a form of image processing to the image. ##
 
 ### Methods added so far: ### 
 
