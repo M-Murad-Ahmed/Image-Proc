@@ -1,50 +1,53 @@
-# Image-Proc
-Image processing labs. Each method inside the Demo.java file applies a form of image processing to the image. 
+# Image-Processing #
 
-Methods added so far: 
+##Image processing labs. Each method inside the Demo.java file applies a form of image processing to the image. ##
 
-Week #2:
-Image Pixel Value Re-Scaling: Re-scaling all the pixel values in an image and displaying the image
-Image Pixel Value Shifting: Shifting all the pixel values in an image and displaying the image
-Image Pixel Value Shifting and Re-Scaling: Add a random value to each pixel value, and then shift and re-scale all the pixel values in the image and display the image
+### Methods added so far: ### 
 
-Week #3:
-Arithmetic operations: Addition, Subtraction, Multiplication and Division of two images
-Bitwise Boolean NOT operation: Bitwise NOT of one image. 
-Bitwise Boolean operations: AND, OR and XOR of two images. 
-ROI-based operations: Use a Black-and-White image as the Alpha channel for
-image processing. ROI stands for Region of Interest. 
+**Week 2:**
 
-Week #4
-Negative Linear Transform: apply negative linear function s = L-1-r to images.
-Logarithmic function to images
-Power-Law function to images
-Random Look-up Table
-bit-plane slicing
+1. Image Pixel Value Re-Scaling: Re-scaling all the pixel values in an image and displaying the image
+2. Image Pixel Value Shifting: Shifting all the pixel values in an image and displaying the image
+3. Image Pixel Value Shifting and Re-Scaling: Add a random value to each pixel value, and then shift and re-scale all the pixel values in the image and display the image
 
-Week #5:
-Finding Histogram
-Histogram Normalisation
-Histogram Equalisation
-Histogram Displaying
+**Week 3:**
+1. Arithmetic operations: Addition, Subtraction, Multiplication and Division of two images
+2. Bitwise Boolean NOT operation: Bitwise NOT of one image. 
+3. Bitwise Boolean operations: AND, OR and XOR of two images. 
+4. ROI-based operations: Use a Black-and-White image as the Alpha channel for
+5. image processing. ROI stands for Region of Interest. 
 
-Week #6:
-Image Convolution: Convoluting an image with a mask for smoothing and edge
+**Week 4:**
+1. Negative Linear Transform: apply negative linear function s = L-1-r to images.
+2. Logarithmic function to images
+3. Power-Law function to images
+4. Random Look-up Table
+5. bit-plane slicing
+
+**Week 5:**
+1. Finding Histogram
+2. Histogram Normalisation
+3. Histogram Equalisation
+4. Histogram Displaying
+
+**Week 6:**
+* Image Convolution (I have also done correlation): Convoluting an image with a mask for smoothing and edge
 detection:
-Average, Weigted average, 
-4 and 8 neighbour laplacian, 
-4 and 8 neighbour laplacian enhancement,
-Roberts 1 and 2,
-Sobel x and y
+1. Average 
+2. Weighted average, 
+3. 4 and 8 neighbour laplacian, 
+4. 4 and 8 neighbour laplacian enhancement,
+5. Roberts 1 and 2
+6. Sobel x and y
 
-Week #7:
-Salt-and-Pepper Noise adding
-Min Filtering
-Max Filtering
-Midpoint Filtering
-Median Filtering
+**Week 7:**:
+1. Salt-and-Pepper Noise adding
+2. Min Filtering
+3. Max Filtering
+4. Midpoint Filtering
+5. Median Filtering
 
-Week #8:
-Mean and standard deviation of an image
-Simple thresholding
-Automated thresholding
+**Week 8:**:
+1. Mean and standard deviation of an image
+2. Simple thresholding
+3. Automated thresholding
