@@ -43,3 +43,8 @@ Min Filtering
 Max Filtering
 Midpoint Filtering
 Median Filtering
+
+Week #8:
+Mean and standard deviation of an image
+Simple thresholding
+Automated thresholding
