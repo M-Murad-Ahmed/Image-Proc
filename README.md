@@ -14,8 +14,7 @@
 1. Arithmetic operations: Addition, Subtraction, Multiplication and Division of two images
 2. Bitwise Boolean NOT operation: Bitwise NOT of one image. 
 3. Bitwise Boolean operations: AND, OR and XOR of two images. 
-4. ROI-based operations: Use a Black-and-White image as the Alpha channel for
-5. image processing. ROI stands for Region of Interest. 
+4. ROI-based operations: Use a Black-and-White image as the Alpha channel for image processing. ROI stands for Region of Interest. 
 
 **Week 4:**
 1. Negative Linear Transform: apply negative linear function s = L-1-r to images.
