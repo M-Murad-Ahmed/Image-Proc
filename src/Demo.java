@@ -97,12 +97,12 @@ public class Demo extends Component implements ActionListener {
     }
 
 
-    String[] getDescriptions() {
+    private String[] getDescriptions() {
         return descs;
     }
 
     // Return the formats sorted alphabetically and in lower case
-    public String[] getFormats() {
+    private String[] getFormats() {
         String[] formats = {"bmp","gif","jpeg","jpg","png"};
         TreeSet<String> formatSet = new TreeSet<String>();
         for (String s : formats) {
@@ -113,7 +113,7 @@ public class Demo extends Component implements ActionListener {
 
 
 
-    void setOpIndex(int i) {
+    private void setOpIndex(int i) {
         opIndex = i;
     }
 
@@ -152,7 +152,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //  Convert the  Array to BufferedImage
     //************************************
-    public BufferedImage convertToBimage(int[][][] TmpArray){
+    private BufferedImage convertToBimage(int[][][] TmpArray){
 
         int width = TmpArray.length;
         int height = TmpArray[0].length;
@@ -180,7 +180,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //  Example:  Image Negative
     //************************************
-    public BufferedImage ImageNegative(BufferedImage timg){
+    private BufferedImage ImageNegative(BufferedImage timg){
         int width = timg.getWidth();
         int height = timg.getHeight();
 
@@ -204,7 +204,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
 
 
-    public BufferedImage readRawImage(String imageFilePath )
+    private BufferedImage readRawImage(String imageFilePath )
     {
         try
         {
@@ -245,7 +245,7 @@ public class Demo extends Component implements ActionListener {
         }
     }
 
-    public static int[][][] parseImage(String[] stringImageData )
+    private static int[][][] parseImage(String[] stringImageData )
     {
         int x = 0;
         int y = 0;
@@ -276,7 +276,7 @@ public class Demo extends Component implements ActionListener {
 
     }
 
-    public static int[] parseStringArray( String line )
+    private static int[] parseStringArray( String line )
     {
 
         int[] stringsToReturn = new int[ 512 ];
@@ -311,7 +311,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //  RESCALE PIXEL VALUES
     //************************************
-    public BufferedImage Rescale(BufferedImage timg){
+    private BufferedImage Rescale(BufferedImage timg){
         int width = timg.getWidth();
         int height = timg.getHeight();
         float scale = 2;
@@ -339,7 +339,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     // SHIFT PIXEL VALUES
     //************************************
-    public BufferedImage ShiftImage(BufferedImage timg){
+    private BufferedImage ShiftImage(BufferedImage timg){
         int width = timg.getWidth();
         int height = timg.getHeight();
         float resize = 50;
@@ -369,7 +369,7 @@ public class Demo extends Component implements ActionListener {
     //****************************************
     // RANDOMLY RESCALE AND SHIFT PIXEL VALUES
     //****************************************
-    public BufferedImage RescaleAndShift(BufferedImage timg){
+    private BufferedImage RescaleAndShift(BufferedImage timg){
 
         int width = timg.getWidth();
         int height = timg.getHeight();
@@ -410,7 +410,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //ARITHMETICAL ADDITION OF 2 IMAGES
     //************************************
-    public BufferedImage addImage(BufferedImage timg) {
+    private BufferedImage addImage(BufferedImage timg) {
         try {
             BufferedImage bi2 = ImageIO.read(new File("/Users/muradahmed/IdeaProjects/ImageProcessing/src//LenaRGB.bmp"));
             int[][][] secondImage = convertToArray(bi2);
@@ -443,7 +443,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //ARITHMETICAL SUBTRACTION OF 2 IMAGES
     //************************************
-    public BufferedImage subtractImage(BufferedImage timg) {
+    private BufferedImage subtractImage(BufferedImage timg) {
         try {
             BufferedImage bi2 = ImageIO.read(new File("/Users/muradahmed/IdeaProjects/ImageProcessing/src//LenaRGB.bmp"));
             int[][][] secondImage = convertToArray(bi2);
@@ -476,7 +476,7 @@ public class Demo extends Component implements ActionListener {
     //****************************************
     // ARITHMETICAL MULTIPLICATION OF 2 IMAGES
     //****************************************
-    public BufferedImage MultiplyImage(BufferedImage timg) {
+    private BufferedImage MultiplyImage(BufferedImage timg) {
         try {
             BufferedImage bi2 = ImageIO.read(new File("/Users/muradahmed/IdeaProjects/ImageProcessing/src//PeppersRGB.bmp"));
             int[][][] secondImage = convertToArray(bi2);
@@ -509,7 +509,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //ARITHMETICAL DIVISION OF 2 IMAGES
     //************************************
-    public BufferedImage Divided(BufferedImage timg) {
+    private BufferedImage Divided(BufferedImage timg) {
         try {
             BufferedImage bi2 = ImageIO.read(new File("/Users/muradahmed/IdeaProjects/ImageProcessing/src//LenaRGB.bmp"));
             int[][][] secondImage = convertToArray(bi2);
@@ -552,7 +552,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //BITWISE NOT ON IMAGE
     //************************************
-    public BufferedImage bitwiseNOT(BufferedImage timg){
+    private BufferedImage bitwiseNOT(BufferedImage timg){
         int ImageArray[][][] = convertToArray(timg);
         int height = timg.getHeight();
         int width = timg.getWidth();
@@ -583,7 +583,7 @@ public class Demo extends Component implements ActionListener {
     //BITWISE AND ON 2 IMAGES
     //************************************
     @SuppressWarnings("Duplicates")
-    public BufferedImage bitwiseAND(BufferedImage timg) {
+    private BufferedImage bitwiseAND(BufferedImage timg) {
         try {
             BufferedImage bi2 = ImageIO.read(new File("/Users/muradahmed/IdeaProjects/ImageProcessing/src//LenaRGB.bmp"));
             int[][][] secondImage = convertToArray(bi2);
@@ -612,7 +612,7 @@ public class Demo extends Component implements ActionListener {
     }
 
     @SuppressWarnings("Duplicates")
-    public BufferedImage combineFilters(BufferedImage timg, BufferedImage timg2) {
+    private BufferedImage combineFilters(BufferedImage timg, BufferedImage timg2) {
         try {
             BufferedImage bi2 = timg2;
             int[][][] secondImage = convertToArray(bi2);
@@ -643,7 +643,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //BITWISE OR ON 2 IMAGES
     //************************************
-    public BufferedImage bitwiseOR(BufferedImage timg){
+    private BufferedImage bitwiseOR(BufferedImage timg){
         try {
             BufferedImage bi2 = ImageIO.read(new File("/Users/muradahmed/IdeaProjects/ImageProcessing/src//LenaRGB.bmp"));
             int[][][] secondImage = convertToArray(bi2);
@@ -676,7 +676,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //BITWISE XOR ON 2 IMAGES
     //************************************
-    public BufferedImage bitwiseXOR(BufferedImage timg){
+    private BufferedImage bitwiseXOR(BufferedImage timg){
         try {
             BufferedImage bi2 = ImageIO.read(new File("/Users/muradahmed/IdeaProjects/ImageProcessing/src//LenaRGB.bmp"));
             int[][][] secondImage = convertToArray(bi2);
@@ -705,7 +705,7 @@ public class Demo extends Component implements ActionListener {
 
     }
 
-    public BufferedImage RegionOfInterestComb(BufferedImage timg)
+    private BufferedImage RegionOfInterestComb(BufferedImage timg)
     {
         // x min limit as 80 and x max as 150 , y min = 50, ymax = 100 = face region
 
@@ -734,7 +734,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //Log Law
     //************************************
-    public BufferedImage Logarithm(BufferedImage timg){
+    private BufferedImage Logarithm(BufferedImage timg){
         int [][][] ImageArray = convertToArray(timg);
         int height = timg.getHeight();
         int width = timg.getWidth();
@@ -758,7 +758,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //Power law
     //************************************
-    public BufferedImage PowerLaw(BufferedImage timg){
+    private BufferedImage PowerLaw(BufferedImage timg){
         int [][][] ImageArray = convertToArray(timg);
         int height = timg.getHeight();
         int width = timg.getWidth();
@@ -783,7 +783,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //Generate Look up table
     //************************************
-    public static void GenerateLookUpTable(){
+    private static void GenerateLookUpTable(){
         LUT = new int[256];
         double p = 0.4;
         for(int k=0; k<=255; k++) {
@@ -796,7 +796,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     // Using the generated LUT
     //************************************
-    public BufferedImage useLookUpTable(BufferedImage timg){
+    private BufferedImage useLookUpTable(BufferedImage timg){
         int [][][] ImageArray  = convertToArray(timg);
         int height = timg.getHeight();
         int width = timg.getWidth();
@@ -820,7 +820,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //Perform bit plane slicing
     //************************************
-    public BufferedImage bitplaneslice(BufferedImage timg){
+    private BufferedImage bitplaneslice(BufferedImage timg){
         int width = timg.getWidth();
         int height = timg.getHeight();
         int[][][] ImageArray = convertToArray(timg);          //  Convert the image to array
@@ -856,7 +856,7 @@ public class Demo extends Component implements ActionListener {
     //Find histogram, normalise and equalise
     //************************************
     @SuppressWarnings("Duplicates")
-    public BufferedImage histogram(BufferedImage timg) {
+    private BufferedImage histogram(BufferedImage timg) {
         int width = timg.getWidth();
         int height = timg.getHeight();
 
@@ -945,7 +945,7 @@ public class Demo extends Component implements ActionListener {
         return convertToBimage(ImageArray); // Convert the array to BufferedImage
     }
 
-    public BufferedImage mask(BufferedImage timg){
+    private BufferedImage mask(BufferedImage timg){
         int switcher;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Which mask 1) avg 2)weighted avg 3)4 nb lap 4)8 nb lap 5)4 nb lap enhance 6)8 nb lap enhance 7)Roberts 1 8)roberts2 9)sobel x 10) sobel y");
@@ -976,7 +976,7 @@ public class Demo extends Component implements ActionListener {
                         for (int j = 0; j < 3; j++) {
                             if (i == 1 && j == 1) {
                                 mask33[i][j]=4;
-                                mask33[i][j] = mask33[i][j]* 1 / 16;
+                                mask33[i][j] =  mask33[i][j] * 1 / 16;
                             } else if (i == 1 || j == 1) {
                                 mask33[i][j] = 2;
                                 mask33[i][j] = mask33[i][j]* 1 / 16 ;
@@ -1215,7 +1215,7 @@ public class Demo extends Component implements ActionListener {
     //Median filter
     //************************************
     @SuppressWarnings("Duplicates")
-    public BufferedImage median_filter(BufferedImage timg){
+    private BufferedImage median_filter(BufferedImage timg){
         int [] rWindow = new int[9];
         int [] gWindow = new int[9];
         int [] bWindow = new int[9];
@@ -1252,7 +1252,7 @@ public class Demo extends Component implements ActionListener {
     //Min filter
     //************************************
     @SuppressWarnings("Duplicates")
-    public BufferedImage min_filter(BufferedImage timg){
+    private BufferedImage min_filter(BufferedImage timg){
         int [] rWindow = new int[9];
         int [] gWindow = new int[9];
         int [] bWindow = new int[9];
@@ -1289,7 +1289,7 @@ public class Demo extends Component implements ActionListener {
     //Max filter
     //************************************
     @SuppressWarnings("Duplicates")
-    public BufferedImage max_filter(BufferedImage timg){
+    private BufferedImage max_filter(BufferedImage timg){
         int [] rWindow = new int[9];
         int [] gWindow = new int[9];
         int [] bWindow = new int[9];
@@ -1326,7 +1326,7 @@ public class Demo extends Component implements ActionListener {
     //mid point filter
     //************************************
     @SuppressWarnings("Duplicates")
-    public BufferedImage midpoint_filter(BufferedImage timg){
+    private BufferedImage midpoint_filter(BufferedImage timg){
         int[] rWindow = new int[9];
         int[] gWindow = new int[9];
         int[] bWindow = new int[9];
@@ -1363,7 +1363,7 @@ public class Demo extends Component implements ActionListener {
     }
 
     @SuppressWarnings("Duplicates")
-    public BufferedImage histogramMeanStd(BufferedImage timg) {
+    private BufferedImage histogramMeanStd(BufferedImage timg) {
         int width = timg.getWidth();
         int height = timg.getHeight();
 
@@ -1472,7 +1472,7 @@ public class Demo extends Component implements ActionListener {
     }
 
 
-    public BufferedImage automatedThresh(BufferedImage timg) {
+    private BufferedImage automatedThresh(BufferedImage timg) {
         int mean_back_r = 0;
         int mean_back_g = 0;
         int mean_back_b = 0;
@@ -1678,7 +1678,7 @@ public class Demo extends Component implements ActionListener {
     //************************************
     //  You need to register your function here
     //************************************
-    public void filterImage() {
+    private void filterImage() {
 
         if (opIndex == lastOp) {
             return;
@@ -1778,7 +1778,7 @@ public class Demo extends Component implements ActionListener {
         }
     }
 
-    public void undoImage(){
+    private void undoImage(){
         try {
             if(undoList.size()-1>=1) {
                 undoList.remove(undoList.size() - 1);
@@ -1800,7 +1800,7 @@ public class Demo extends Component implements ActionListener {
         catch (Exception e){}
     }
 
-    public void combineROI(){
+    private void combineROI(){
         try {
             BufferedImage bi3 = this.RegionOfInterestComb(this.undoList.get(this.undoList.size() - 2));
             Graphics big = bi3.getGraphics();
@@ -1813,7 +1813,7 @@ public class Demo extends Component implements ActionListener {
 
     }
 
-    public void reset(){
+    private void reset(){
         try {
             String filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//Cameraman.bmp";
             BufferedImage original = ImageIO.read(new File(filepath));
