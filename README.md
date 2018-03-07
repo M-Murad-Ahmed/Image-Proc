@@ -33,9 +33,9 @@
 * Image Convolution (I have also done correlation): Convoluting an image with a mask for smoothing and edge
 detection:
 1. Average 
-2. Weighted average, 
-3. 4 and 8 neighbour laplacian, 
-4. 4 and 8 neighbour laplacian enhancement,
+2. Weighted average 
+3. 4 and 8 neighbour laplacian 
+4. 4 and 8 neighbour laplacian enhancement
 5. Roberts 1 and 2
 6. Sobel x and y
 

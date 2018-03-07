@@ -948,7 +948,7 @@ public class Demo extends Component implements ActionListener {
     public BufferedImage mask(BufferedImage timg){
         int switcher;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Which mask 1) avg 2)weighted avg 3)4 nb lap 4)8 nb lap 5)4 nb lap enhance 6)8 nb lap enhance 7)Roberts 1 8) roberts2 9)sobel x 10) sobel y");
+        System.out.println("Which mask 1) avg 2)weighted avg 3)4 nb lap 4)8 nb lap 5)4 nb lap enhance 6)8 nb lap enhance 7)Roberts 1 8)roberts2 9)sobel x 10) sobel y");
         switcher = scanner.nextInt();
         float [][] mask33 = {  { 0, 0, 0 },
                 { 0, 0, 0 },
@@ -971,14 +971,18 @@ public class Demo extends Component implements ActionListener {
                     return applyMask(mask33, timg);
                 //weighted avg
                 case 2:
+
                     for (int i = 0; i < 3; i++) {
                         for (int j = 0; j < 3; j++) {
                             if (i == 1 && j == 1) {
-                                mask33[i][j] = (float) 4 / 16;
+                                mask33[i][j]=4;
+                                mask33[i][j] = mask33[i][j]* 1 / 16;
                             } else if (i == 1 || j == 1) {
-                                mask33[i][j] = (float) 2/16 ;
+                                mask33[i][j] = 2;
+                                mask33[i][j] = mask33[i][j]* 1 / 16 ;
                             } else {
-                                mask33[i][j] = (float) 1 / 16;
+                                mask33[i][j] = 1;
+                                mask33[i][j] = mask33[i][j]* 1 / 16;
                             }
                         }
                     }
