@@ -50,16 +50,16 @@ public class Demo extends Component implements ActionListener {
     private  BufferedImage bi, biFiltered;   // the input image saved as bi;//
     private int w, h;
     private  ArrayList<BufferedImage> undoList = new ArrayList<>();
+    private String filepath = "";
 
     public Demo() {
         try {
-            String filepath;
             Scanner scanner = new Scanner(System.in);
             System.out.println("Read 1)original or 2)raw ?");
             int switcher = scanner.nextInt();
             if(switcher==1) {
-                filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//Cameraman.bmp";
-                bi = ImageIO.read(new File(filepath));
+                this.filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//BaboonRGB.bmp";
+                bi = ImageIO.read(new File(this.filepath));
                 //System.out.println(bi);
                 w = bi.getWidth(null);
                 h = bi.getHeight(null);
@@ -1815,8 +1815,7 @@ public class Demo extends Component implements ActionListener {
 
     private void reset(){
         try {
-            String filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//Cameraman.bmp";
-            BufferedImage original = ImageIO.read(new File(filepath));
+            BufferedImage original = ImageIO.read(new File(this.filepath));
             this.undoList.removeAll(this.undoList);
             BufferedImage bi4 = original;
             Graphics big = bi4.getGraphics();
