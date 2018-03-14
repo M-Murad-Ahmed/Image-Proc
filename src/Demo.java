@@ -764,7 +764,8 @@ public class Demo extends Component implements ActionListener {
         int width = timg.getWidth();
         int r,g,b;
         double gamma = 0.45;
-        int c = (int) Math.pow(255,1-gamma);
+        double c = 255/Math.pow(255, gamma);
+                //(int) Math.pow(255,1-gamma);
         for(int y=0;y<height;y++){
             for(int x=0;x<width;x++){
                 r = (int) (c * Math.pow(ImageArray[x][y][1], gamma));
