@@ -41,7 +41,7 @@ public class Demo extends Component implements ActionListener {
             "Combine filters",
             "Mean and standard deviation",
             "Simple thresholding",
-            "Adaptive thresholding",
+            "Automated thresholding",
     };
 
     private int opIndex;  //option index for
@@ -58,7 +58,7 @@ public class Demo extends Component implements ActionListener {
             System.out.println("Read 1)original or 2)raw ?");
             int switcher = scanner.nextInt();
             if(switcher==1) {
-                this.filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//BaboonRGB.bmp";
+                this.filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//PeppersRGB.bmp";
                 bi = ImageIO.read(new File(this.filepath));
                 //System.out.println(bi);
                 w = bi.getWidth(null);
@@ -870,7 +870,7 @@ public class Demo extends Component implements ActionListener {
         double[] blueNormHist = new double[256];
         double[] cumRedHist = new double[256];
         double[] cumGreenHist = new double[256];
-        double[] blueGreenHist = new double[256];
+        double[] cumBlueHist = new double[256];
         double[] valueToApplyR = new double[256];
         double[] valueToApplyG = new double[256];
         double[] valueToApplyB = new double[256];
@@ -889,7 +889,7 @@ public class Demo extends Component implements ActionListener {
             blueNormHist[i] = 0;
             cumRedHist[i] = 0;
             cumGreenHist[i] = 0;
-            blueGreenHist[i] = 0;
+            cumBlueHist[i] = 0;
             valueToApplyR[i] = 0;
             valueToApplyG[i] = 0;
             valueToApplyB[i] = 0;
@@ -904,6 +904,9 @@ public class Demo extends Component implements ActionListener {
                 redHistogram[r]++;
                 greenHistogram[g]++;
                 blueHistogram[b]++;
+                System.out.println("Histogram value for red pixel value " + r + redHistogram[r]);
+                System.out.println("Histogram value for green pixel value " + r + greenHistogram[r]);
+                System.out.println("Histogram value for blue pixel value " + r + blueHistogram[r]);
 
             }
         }
@@ -914,6 +917,9 @@ public class Demo extends Component implements ActionListener {
             redNormHist[i] = (redHistogram[i] / pixelCount);
             greenNormHist[i] = (greenHistogram[i] / pixelCount);
             blueNormHist[i] = (blueHistogram[i] / pixelCount);
+            System.out.println("Red normalised histogram: "+redNormHist[i]);
+            System.out.println("Green normalised histogram: " + greenNormHist[i]);
+            System.out.println("Blue normalised histogram: "+ blueNormHist[i]);
         }
 
         // cumulative
@@ -923,14 +929,17 @@ public class Demo extends Component implements ActionListener {
             cumB += blueNormHist[i];
             cumRedHist[i] = cumR;
             cumGreenHist[i] = cumG;
-            blueGreenHist[i] = cumB;
+            cumBlueHist[i] = cumB;
+            System.out.println("Cumulative histogram value for red :" + cumRedHist[i]);
+            System.out.println("Cumulative histogram value for green :" + cumGreenHist[i]);
+            System.out.println("Cumulative histogram value for blue :" + cumBlueHist[i]);
         }
 
         //multiply cumulative by 255
         for (int i = 0; i < 256; i++) {
             valueToApplyR[i] = Math.round(cumRedHist[i] * 255);
             valueToApplyG[i] = Math.round(cumGreenHist[i] * 255);
-            valueToApplyB[i] = Math.round(blueGreenHist[i] * 255);
+            valueToApplyB[i] = Math.round(cumBlueHist[i] * 255);
         }
 
         //apply to image
@@ -968,7 +977,7 @@ public class Demo extends Component implements ActionListener {
                         }
                     }
 
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,0);
                 //weighted avg
                 case 2:
 
@@ -986,7 +995,7 @@ public class Demo extends Component implements ActionListener {
                             }
                         }
                     }
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,0);
                 //4 neighbour laplacian
                 case 3:
                     for (int i = 0; i < 3; i++) {
@@ -1000,7 +1009,7 @@ public class Demo extends Component implements ActionListener {
                             }
                         }
                     }
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,0);
                 //8 neighbour laplacian
                 case 4:
                     for (int i = 0; i<3; i++) {
@@ -1012,7 +1021,7 @@ public class Demo extends Component implements ActionListener {
                             }
                         }
                     }
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,0);
                 //4 neighbour laplacian enhancement
                 case 5:
                     for (int i = 0; i < 3; i++) {
@@ -1026,7 +1035,7 @@ public class Demo extends Component implements ActionListener {
                             }
                         }
                     }
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,0);
                 //8 neighbour laplacian enhancement
                 case 6:
                     for (int i = 0; i < 3; i++) {
@@ -1038,7 +1047,7 @@ public class Demo extends Component implements ActionListener {
                             }
                         }
                     }
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,0);
                 //roberts 1
                 case 7:
                     for (int i = 0; i < 3; i++) {
@@ -1051,7 +1060,7 @@ public class Demo extends Component implements ActionListener {
                             }
                         }
                     }
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,1);
                 //roberts 2
                 case 8:
                     for (int i = 0; i < 3; i++) {
@@ -1064,7 +1073,7 @@ public class Demo extends Component implements ActionListener {
                             }
                         }
                     }
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,1);
                 //sobel x
                 case 9:
                     for (int i = 0; i < 3; i++) {
@@ -1087,7 +1096,7 @@ public class Demo extends Component implements ActionListener {
                             }
                         }
                     }
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,1);
                 //sobel y
                 case 10:
                     for (int i = 0; i < 3; i++) {
@@ -1110,7 +1119,7 @@ public class Demo extends Component implements ActionListener {
                             }
                         }
                     }
-                    return applyMask(mask33, timg);
+                    return applyMask(mask33, timg,1);
             }
 
              /*
@@ -1129,7 +1138,8 @@ public class Demo extends Component implements ActionListener {
     //********************************************
     //Apply mask either correlation or convolution
     //********************************************
-    private BufferedImage applyMask(float [][]Mask, BufferedImage timg){
+    @SuppressWarnings("Duplicates")
+    private BufferedImage applyMask(float [][]Mask, BufferedImage timg, int option){
         int switcher;
         Scanner scanner = new Scanner(System.in);
         System.out.println("1) Correlation 2) Convolution");
@@ -1152,10 +1162,18 @@ public class Demo extends Component implements ActionListener {
 
                             }
                         }
-                        ImageArray2[x][y][0] = ImageArray[x][y][0];
-                        ImageArray2[x][y][1] = checkBoundary(r);
-                        ImageArray2[x][y][2] = checkBoundary(g);
-                        ImageArray2[x][y][3] = checkBoundary(b);
+                        if(option == 0) {
+                            ImageArray2[x][y][0] = ImageArray[x][y][0];
+                            ImageArray2[x][y][1] = checkBoundary(r);
+                            ImageArray2[x][y][2] = checkBoundary(g);
+                            ImageArray2[x][y][3] = checkBoundary(b);
+                        }
+                        else{
+                            ImageArray2[x][y][0] = ImageArray[x][y][0];
+                            ImageArray2[x][y][1] = Math.abs(r);
+                            ImageArray2[x][y][2] = Math.abs(g);
+                            ImageArray2[x][y][3] = Math.abs(b);
+                        }
                     }
                 }
             case 2:
@@ -1170,10 +1188,18 @@ public class Demo extends Component implements ActionListener {
 
                             }
                         }
-                        ImageArray2[x][y][0] = ImageArray[x][y][0];
-                        ImageArray2[x][y][1] = checkBoundary(r);
-                        ImageArray2[x][y][2] = checkBoundary(g);
-                        ImageArray2[x][y][3] = checkBoundary(b);
+                        if(option == 0) {
+                            ImageArray2[x][y][0] = ImageArray[x][y][0];
+                            ImageArray2[x][y][1] = checkBoundary(r);
+                            ImageArray2[x][y][2] = checkBoundary(g);
+                            ImageArray2[x][y][3] = checkBoundary(b);
+                        }
+                        else{
+                            ImageArray2[x][y][0] = ImageArray[x][y][0];
+                            ImageArray2[x][y][1] = Math.abs(r);
+                            ImageArray2[x][y][2] = Math.abs(g);
+                            ImageArray2[x][y][3] = Math.abs(b);
+                        }
                     }
                 }
 
@@ -1473,16 +1499,17 @@ public class Demo extends Component implements ActionListener {
 
 
     private BufferedImage automatedThresh(BufferedImage timg) {
-        int mean_back_r = 0;
-        int mean_back_g = 0;
-        int mean_back_b = 0;
-        int mean_obj_r = 0;
-        int mean_obj_g = 0;
-        int mean_obj_b = 0;
-        int t1_r, t1_g, t1_b, cnt_obj_r, cnt_obj_g, cnt_obj_b, cnt_back_r, cnt_back_g, cnt_back_b, t_r, t_g, t_b;
-        int t0_r = 1;
-        int t0_g =1 ;
-        int t0_b = 1;
+        int mean_back_r_value = 0;
+        int mean_back_g_value = 0;
+        int mean_back_b_value = 0;
+        int mean_obj_r_value = 0;
+        int mean_obj_g_value = 0;
+        int mean_obj_b_value = 0;
+        int thresh_r, thresh_g, thresh_b, r_object_count, green_object_count, blue_object_count, r_background_count,
+                green_background_count, blue_background_count, t_r, t_g, t_b;
+        int t_0r = 1;
+        int t_0g =1 ;
+        int t_0b = 1;
         int[][][] ImageArray = convertToArray(timg);
         int height = timg.getHeight();
         int width = timg.getWidth();
@@ -1500,63 +1527,63 @@ public class Demo extends Component implements ActionListener {
                         || (y == width - 1 && x == 0)
                         || (y == 0 && x == height - 1)
                         || (y == width - 1 && x == height - 1)) {
-                    mean_back_r += r;
-                    mean_back_g += g;
-                    mean_back_b += b;
+                    mean_back_r_value += r;
+                    mean_back_g_value += g;
+                    mean_back_b_value += b;
 
                 } else {
-                    mean_obj_r += r;
-                    mean_obj_g += g;
-                    mean_obj_b += b;
+                    mean_obj_r_value += r;
+                    mean_obj_g_value += g;
+                    mean_obj_b_value += b;
                 }
             }
         }
 
-        mean_back_r = mean_back_r / 4;
-        mean_back_g = mean_back_g / 4;
-        mean_back_b = mean_back_b / 4;
-        mean_obj_r = mean_obj_r / ((width * height) - 4);
-        mean_obj_g = mean_obj_g / ((width * height) - 4);
-        mean_obj_b = mean_obj_b / ((width * height) - 4);
-        t1_r = (mean_back_r + mean_obj_r) / 2;
-        t1_g = (mean_back_g + mean_obj_g) / 2;
-        t1_b = (mean_back_b + mean_obj_b) / 2;
-        System.out.println("Initial background mean for red: " + mean_back_r + " green: " + mean_back_g + " blue: " + mean_back_b);
-        System.out.println("Initial object mean: red: " + mean_obj_r + " green: " + mean_obj_g + " blue: " + mean_obj_b);
-        System.out.println("Intial T_(t+1): " + t1_r + " " + t1_g + " " + t1_b);
+        mean_back_r_value = mean_back_r_value / 4;
+        mean_back_g_value = mean_back_g_value / 4;
+        mean_back_b_value = mean_back_b_value / 4;
+        mean_obj_r_value = mean_obj_r_value / ((width * height) - 4);
+        mean_obj_g_value = mean_obj_g_value / ((width * height) - 4);
+        mean_obj_b_value = mean_obj_b_value / ((width * height) - 4);
+        thresh_r = (mean_back_r_value + mean_obj_r_value) / 2;
+        thresh_g = (mean_back_g_value + mean_obj_g_value) / 2;
+        thresh_b = (mean_back_b_value + mean_obj_b_value) / 2;
+        System.out.println("Initial background mean for red: " + mean_back_r_value + " green: " + mean_back_g_value + " blue: " + mean_back_b_value);
+        System.out.println("Initial object mean: red: " + mean_obj_r_value + " green: " + mean_obj_g_value + " blue: " + mean_obj_b_value);
+        System.out.println("Initial T_(t+1): " + thresh_r + " " + thresh_g + " " + thresh_b);
 
         //Iteration to find proper threshold for red
         while (true) {
-            mean_obj_r = 0;
-            mean_back_r = 0;
-            cnt_obj_r = 0;
-            cnt_back_r = 0;
-            t_r = t1_r;
+            mean_obj_r_value = 0;
+            mean_back_r_value = 0;
+            r_object_count = 0;
+            r_background_count = 0;
+            t_r = thresh_r;
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     r = ImageArray[x][y][1];
                     //compute background and object mean over segmented image
                     if (r >= t_r) {
-                        mean_obj_r += r;
-                        cnt_obj_r += 1;
+                        mean_obj_r_value += r;
+                        r_object_count += 1;
                     } else if (r < t_r) {
-                        mean_back_r += r;
-                        cnt_back_r += 1;
+                        mean_back_r_value += r;
+                        r_background_count += 1;
                     }
                 }
             }
 
-            if (mean_back_r > 0) {
-                mean_back_r = mean_back_r / cnt_back_r;
+            if (mean_back_r_value > 0) {
+                mean_back_r_value = mean_back_r_value / r_background_count;
             }
-            if (mean_obj_r > 0) {
-                mean_obj_r = mean_obj_r / cnt_obj_r;
+            if (mean_obj_r_value > 0) {
+                mean_obj_r_value = mean_obj_r_value / r_object_count;
             }
 
 
-            t1_r = (mean_back_r + mean_obj_r) / 2;
+            thresh_r = (mean_back_r_value + mean_obj_r_value) / 2;
             //Stop loop
-            if (Math.abs(t1_r - t_r) < t0_r) {
+            if (Math.abs(thresh_r - t_r) < t_0r) {
                 break;
 
 
@@ -1564,67 +1591,67 @@ public class Demo extends Component implements ActionListener {
         }
         //green
         while (true) {
-            mean_obj_g = 0;
-            mean_back_g = 0;
-            cnt_obj_g = 0;
-            cnt_back_g = 0;
-            t_g = t1_g;
+            mean_obj_g_value = 0;
+            mean_back_g_value = 0;
+            green_object_count = 0;
+            green_background_count = 0;
+            t_g = thresh_g;
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     g = ImageArray[x][y][2];
                     //compute background and object mean over segmented image
                     if (g >= t_g) {
-                        mean_obj_g += g;
-                        cnt_obj_g += 1;
+                        mean_obj_g_value += g;
+                        green_object_count += 1;
                     } else if (g < t_g) {
-                        mean_back_g += g;
-                        cnt_back_g += 1;
+                        mean_back_g_value += g;
+                        green_background_count += 1;
                     }
                 }
             }
 
-            if (mean_back_g > 0) {
-                mean_back_g = mean_back_g / cnt_back_g;
+            if (mean_back_g_value > 0) {
+                mean_back_g_value = mean_back_g_value / green_background_count;
             }
-            if (mean_obj_g > 0) {
-                mean_obj_g = mean_obj_g / cnt_obj_g;
+            if (mean_obj_g_value > 0) {
+                mean_obj_g_value = mean_obj_g_value / green_object_count;
             }
 
-            t1_g = (mean_back_g + mean_obj_g) / 2;
+            thresh_g = (mean_back_g_value + mean_obj_g_value) / 2;
             //Stop loop
-            if (Math.abs(t1_g - t_g) < t0_g) {
+            if (Math.abs(thresh_g - t_g) < t_0g) {
                 break;
             }
         }
         //blue
         while (true) {
-            mean_obj_b = 0;
-            mean_back_b = 0;
-            cnt_obj_b = 0;
-            cnt_back_b = 0;
-            t_b = t1_b;
+            mean_obj_b_value = 0;
+            mean_back_b_value = 0;
+            blue_object_count = 0;
+            blue_background_count = 0;
+            t_b = thresh_b;
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     b = ImageArray[x][y][3];
                     //compute background and object mean over segmented image
                     if (b >= t_b) {
-                        mean_obj_b += b;
-                        cnt_obj_b += 1;
+                        mean_obj_b_value += b;
+                        blue_object_count += 1;
                     } else if (b < t_b) {
-                        mean_back_b += b;
-                        cnt_back_b += 1;
+                        mean_back_b_value += b;
+                        blue_background_count += 1;
                     }
                 }
             }
-            if (mean_back_b > 0) {
-                mean_back_b = mean_back_b / cnt_back_b;
+            if (mean_back_b_value > 0) {
+                mean_back_b_value = mean_back_b_value / blue_background_count;
             }
-            if (mean_obj_b > 0) {
-                mean_obj_b = mean_obj_b / cnt_obj_b;
+            if (mean_obj_b_value > 0) {
+                mean_obj_b_value = mean_obj_b_value / blue_object_count;
             }
-            t1_b = (mean_back_b + mean_obj_b) / 2;
+            thresh_b = (mean_back_b_value + mean_obj_b_value) / 2;
             //Stop loop
-            if (Math.abs(t1_b - t_b) < t0_b) {
+            if (Math.abs(thresh_b - t_b) < t_0b) {
                 break;
             }
         }
@@ -1634,19 +1661,19 @@ public class Demo extends Component implements ActionListener {
                 r = ImageArray[x][y][1];
                 g = ImageArray[x][y][2];
                 b = ImageArray[x][y][3];
-                if (r >= t1_r) {
+                if (r >= thresh_r) {
                     r = 255;
-                } else if (r < t1_r) {
+                } else if (r < thresh_r) {
                     r = 0;
                 }
-                if (g >= t1_g) {
+                if (g >= thresh_g) {
                     g = 255;
-                } else if (g < t1_g) {
+                } else if (g < thresh_g) {
                     g = 0;
                 }
-                if (b >= t1_b) {
+                if (b >= thresh_b) {
                     b = 255;
-                } else if (b < t1_b) {
+                } else if (b < thresh_b) {
                     b = 0;
                 }
 
@@ -1789,7 +1816,7 @@ public class Demo extends Component implements ActionListener {
                 repaint();
             }
             else{
-                BufferedImage bi2 = undoList.get(0);
+                BufferedImage bi2 = ImageIO.read(new File(this.filepath));
                 Graphics big = bi2.getGraphics();
                 big.drawImage(bi2, 0, 0, null);
                 biFiltered = bi = bi2;
@@ -1797,7 +1824,7 @@ public class Demo extends Component implements ActionListener {
             }
 
         }
-        catch (Exception e){}
+        catch (Exception e){e.printStackTrace();}
     }
 
     private void combineROI(){
@@ -1809,7 +1836,11 @@ public class Demo extends Component implements ActionListener {
             this.repaint();
 
         }
-        catch (Exception e2){}
+        catch (Exception e){
+            //e.printStackTrace();
+            System.out.println("No filter added");
+             }
+
 
     }
 
@@ -1823,7 +1854,9 @@ public class Demo extends Component implements ActionListener {
             this.biFiltered = this.bi = bi4;
             this.repaint();
         }
-        catch (Exception e1){}
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
