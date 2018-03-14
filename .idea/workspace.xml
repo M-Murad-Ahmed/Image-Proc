@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b367daf-29e7-4d37-80e7-561b00dd1513" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/muradahmed.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/muradahmed.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Demo.java" afterPath="$PROJECT_DIR$/src/Demo.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -17,8 +18,8 @@
       <file leaf-file-name="Demo.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Demo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-107">
-              <caret line="741" column="38" lean-forward="true" selection-start-line="741" selection-start-column="38" selection-end-line="741" selection-end-column="38" />
+            <state relative-caret-position="-24424">
+              <caret line="247" column="34" lean-forward="false" selection-start-line="247" selection-start-column="29" selection-end-line="247" selection-end-column="34" />
               <folding>
                 <element signature="e#3646#3654#0" expanded="true" />
                 <element signature="e#19855#19886#0" expanded="true" />
@@ -30,8 +31,8 @@
                 <element signature="e#48256#48287#0" expanded="true" />
                 <element signature="e#49771#49802#0" expanded="true" />
                 <element signature="e#51442#51473#0" expanded="true" />
-                <element signature="e#67863#67965#0" expanded="true" />
-                <element signature="e#67964#67965#0" expanded="true" />
+                <element signature="e#68911#69013#0" expanded="true" />
+                <element signature="e#69012#69013#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,8 +42,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>checkin</find>
-      <find>multipl</find>
       <find>ImageArray2</find>
       <find>midpoint</find>
       <find>conv</find>
@@ -69,6 +68,10 @@
       <find>readRawImage</find>
       <find>parsedI</find>
       <find>powerla</find>
+      <find>t_r</find>
+      <find>t_r</find>
+      <find>t_0r</find>
+      <find>parse</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -293,7 +296,7 @@
       <workItem from="1520521825998" duration="1113000" />
       <workItem from="1520687690801" duration="999000" />
       <workItem from="1520871762347" duration="6281000" />
-      <workItem from="1521026078079" duration="6238000" />
+      <workItem from="1521026078079" duration="8476000" />
     </task>
     <task id="LOCAL-00001" summary="testing commit">
       <created>1520293356825</created>
@@ -306,7 +309,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29354000" />
+    <option name="totallyTimeSpent" value="31592000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="952" extended-state="0" />
@@ -372,8 +375,8 @@
             <element signature="e#48256#48287#0" expanded="true" />
             <element signature="e#49771#49802#0" expanded="true" />
             <element signature="e#51442#51473#0" expanded="true" />
-            <element signature="e#67863#67965#0" expanded="true" />
-            <element signature="e#67964#67965#0" expanded="true" />
+            <element signature="e#68911#69013#0" expanded="true" />
+            <element signature="e#69012#69013#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -393,8 +396,8 @@
             <element signature="e#48256#48287#0" expanded="true" />
             <element signature="e#49771#49802#0" expanded="true" />
             <element signature="e#51442#51473#0" expanded="true" />
-            <element signature="e#67863#67965#0" expanded="true" />
-            <element signature="e#67964#67965#0" expanded="true" />
+            <element signature="e#68911#69013#0" expanded="true" />
+            <element signature="e#69012#69013#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -414,8 +417,8 @@
             <element signature="e#48256#48287#0" expanded="true" />
             <element signature="e#49771#49802#0" expanded="true" />
             <element signature="e#51442#51473#0" expanded="true" />
-            <element signature="e#67863#67965#0" expanded="true" />
-            <element signature="e#67964#67965#0" expanded="true" />
+            <element signature="e#68911#69013#0" expanded="true" />
+            <element signature="e#69012#69013#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -435,8 +438,8 @@
             <element signature="e#48256#48287#0" expanded="true" />
             <element signature="e#49771#49802#0" expanded="true" />
             <element signature="e#51442#51473#0" expanded="true" />
-            <element signature="e#67863#67965#0" expanded="true" />
-            <element signature="e#67964#67965#0" expanded="true" />
+            <element signature="e#68911#69013#0" expanded="true" />
+            <element signature="e#69012#69013#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -456,8 +459,8 @@
             <element signature="e#48256#48287#0" expanded="true" />
             <element signature="e#49771#49802#0" expanded="true" />
             <element signature="e#51442#51473#0" expanded="true" />
-            <element signature="e#67863#67965#0" expanded="true" />
-            <element signature="e#67964#67965#0" expanded="true" />
+            <element signature="e#68911#69013#0" expanded="true" />
+            <element signature="e#69012#69013#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -477,8 +480,8 @@
             <element signature="e#48256#48287#0" expanded="true" />
             <element signature="e#49771#49802#0" expanded="true" />
             <element signature="e#51442#51473#0" expanded="true" />
-            <element signature="e#67863#67965#0" expanded="true" />
-            <element signature="e#67964#67965#0" expanded="true" />
+            <element signature="e#68911#69013#0" expanded="true" />
+            <element signature="e#69012#69013#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -503,8 +506,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Demo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-107">
-          <caret line="741" column="38" lean-forward="true" selection-start-line="741" selection-start-column="38" selection-end-line="741" selection-end-column="38" />
+        <state relative-caret-position="-24424">
+          <caret line="247" column="34" lean-forward="false" selection-start-line="247" selection-start-column="29" selection-end-line="247" selection-end-column="34" />
           <folding>
             <element signature="e#3646#3654#0" expanded="true" />
             <element signature="e#19855#19886#0" expanded="true" />
@@ -516,8 +519,8 @@
             <element signature="e#48256#48287#0" expanded="true" />
             <element signature="e#49771#49802#0" expanded="true" />
             <element signature="e#51442#51473#0" expanded="true" />
-            <element signature="e#67863#67965#0" expanded="true" />
-            <element signature="e#67964#67965#0" expanded="true" />
+            <element signature="e#68911#69013#0" expanded="true" />
+            <element signature="e#69012#69013#0" expanded="true" />
           </folding>
         </state>
       </provider>

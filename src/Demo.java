@@ -1516,8 +1516,8 @@ public class Demo extends Component implements ActionListener {
         int width = timg.getWidth();
         int r, g, b;
 
-        //Initiation: assume that background is only 4 corners and object the others
-        //find mean of obj and mean of background
+
+        //set the four corner pixels as bg and find mean values of objects and bg
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 r = ImageArray[x][y][1];
@@ -1553,7 +1553,18 @@ public class Demo extends Component implements ActionListener {
         System.out.println("Initial object mean: red: " + mean_obj_r_value + " green: " + mean_obj_g_value + " blue: " + mean_obj_b_value);
         System.out.println("Initial T_(t+1): " + thresh_r + " " + thresh_g + " " + thresh_b);
 
-        //Iteration to find proper threshold for red
+
+        /*
+         Iterate through red, green and blue pixel values and find optimum thresh value for red, green and blue (respectively)
+         steps = find all objects and bg pixel values
+         calculate mean of obj and bg pixel values
+         when the difference between the current thresh value and previous
+         value is less than 1
+         break out of the loop
+
+
+         */
+
         while (true) {
             mean_obj_r_value = 0;
             mean_back_r_value = 0;
@@ -1656,7 +1667,7 @@ public class Demo extends Component implements ActionListener {
                 break;
             }
         }
-        //Apply threshold in order to segment image
+        //Iterate through image and segment using the calculated thresh value
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 r = ImageArray[x][y][1];
@@ -1718,67 +1729,62 @@ public class Demo extends Component implements ActionListener {
                 return;
             case 1: biFiltered = ImageNegative(bi); /* Image Negative */
                 return;
-            case 2: biFiltered = Rescale(bi);
+            case 2: biFiltered = Rescale(bi);/* rescaling pixel values */
                 return;
-            case 3: biFiltered = ShiftImage(bi);
+            case 3: biFiltered = ShiftImage(bi);/* shifting pixel values */
                 return;
-            case 4: biFiltered = RescaleAndShift(bi);
+            case 4: biFiltered = RescaleAndShift(bi);/* randomly rescaling + shift pixel values */
                 return;
-            case 5: biFiltered = addImage(bi);
+            case 5: biFiltered = addImage(bi); /* adding two images together */
                 return;
-            case 6: biFiltered = subtractImage(bi);
+            case 6: biFiltered = subtractImage(bi); /* subtracting two images together */
                 return;
-            case 7: biFiltered = MultiplyImage(bi);
+            case 7: biFiltered = MultiplyImage(bi); /* multiplying two images together */
                 return;
-            case 8: biFiltered = Divided(bi);
+            case 8: biFiltered = Divided(bi);  /* dividing two images together */
                 return;
-            case 9: biFiltered = bitwiseNOT(bi);
+            case 9: biFiltered = bitwiseNOT(bi);  /* bitwise not on image*/
                 return;
-            case 10: biFiltered = bitwiseAND(bi);
+            case 10: biFiltered = bitwiseAND(bi);  /* bitwise AND on two images together */
                 return;
-            case 11: biFiltered = bitwiseOR(bi);
+            case 11: biFiltered = bitwiseOR(bi);  /* bitwise OR on two images */
                 return;
-            case 12: biFiltered = bitwiseXOR(bi);
+            case 12: biFiltered = bitwiseXOR(bi); /* bitwise XOR on two images */
                 return;
-            case 13: biFiltered = Logarithm(bi);
+            case 13: biFiltered = Logarithm(bi); /* Log law on image */
                 return;
-            case 14: biFiltered = PowerLaw(bi);
+            case 14: biFiltered = PowerLaw(bi); /* Power law on image */
                 return;
-            case 15: biFiltered = useLookUpTable(bi);
+            case 15: biFiltered = useLookUpTable(bi); /* LUT with power law or log law */
                 return;
-            case 16: biFiltered = bitplaneslice(bi);
+            case 16: biFiltered = bitplaneslice(bi); /* bitplane slicing */
                 return;
-            case 17: biFiltered = histogram(bi);
+            case 17: biFiltered = histogram(bi); /* find histogram, normalise, and equalise */
                 return;
-            case 18: biFiltered = mask(bi);
+            case 18: biFiltered = mask(bi); /* applying masks on image */
                 return;
-            case 19: biFiltered = median_filter(bi);
+            case 19: biFiltered = median_filter(bi); /* median filter on image */
                 return;
-            case 20: biFiltered = min_filter(bi);
+            case 20: biFiltered = min_filter(bi); /* min filter on image */
                 return;
-            case 21: biFiltered = max_filter(bi);
+            case 21: biFiltered = max_filter(bi); /* max filter on image */
                 return;
-            case 22: biFiltered = midpoint_filter(bi);
+            case 22: biFiltered = midpoint_filter(bi); /* midpoint filter on image */
                 return;
-            case 23: biFiltered = addSaltAndPepper(bi);
+            case 23: biFiltered = addSaltAndPepper(bi); /* adding salt and pepper on image */
                 return;
-            case 24: biFiltered = RegionOfInterestComb(bi);
-            case 25:
+            case 24: biFiltered = RegionOfInterestComb(bi); /* ROI with multiple filter on image */
+            case 25: /* combining two filters together */
                 if(undoList.size()-2>=0) {
                     biFiltered = combineFilters(bi, undoList.get(undoList.size() - 2));
                     return;
                 }
-            case 26: biFiltered = histogramMeanStd(bi);
+            case 26: biFiltered = histogramMeanStd(bi); /* mean and standard deviation of image */
                 return;
-            case 27: biFiltered = simpleThresholding(bi);
+            case 27: biFiltered = simpleThresholding(bi); /* simple thresholding */
                 return;
-            case 28: biFiltered = automatedThresh(bi);
+            case 28: biFiltered = automatedThresh(bi); /* automated thresholding */
             return;
-            //************************************
-            // case 2:
-            //      return;
-            //************************************
-
         }
 
     }
