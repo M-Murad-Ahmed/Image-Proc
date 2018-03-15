@@ -12,7 +12,7 @@ public class Demo extends Component implements ActionListener {
     // List of the options(Original, Negative); correspond to the cases:
     //************************************
 
-    String descs[] = {
+   private String descs[] = {
             "Original",
             "Negative",
             "Rescale",
@@ -37,7 +37,6 @@ public class Demo extends Component implements ActionListener {
             "Max filter",
             "Midpoint filter",
             "Salt and pepper",
-            "Region of interest combination",
             "Combine filters",
             "Mean and standard deviation",
             "Simple thresholding",
@@ -58,7 +57,7 @@ public class Demo extends Component implements ActionListener {
             System.out.println("Read 1)original or 2)raw ?");
             int switcher = scanner.nextInt();
             if(switcher==1) {
-                this.filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//PeppersRGB.bmp";
+                this.filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//cameraman.bmp";
                 bi = ImageIO.read(new File(this.filepath));
                 //System.out.println(bi);
                 w = bi.getWidth(null);
@@ -623,9 +622,9 @@ public class Demo extends Component implements ActionListener {
             for(int y=0;y<height;y++) {
 
                 for (int x = 0; x < width; x++) {
-                    r = firstImage[x][y][1] & secondImage[x][y][1];
-                    g = firstImage[x][y][1] & secondImage[x][y][2];
-                    b = firstImage[x][y][1] & secondImage[x][y][3];
+                    r =  secondImage[x][y][1] & firstImage[x][y][1] ;
+                    g =  secondImage[x][y][2] & firstImage[x][y][1] ;
+                    b =  secondImage[x][y][3] & firstImage[x][y][1] ;
                     firstImage[x][y][1] = r&0xff;
                     firstImage[x][y][2] = g&0xff;
                     firstImage[x][y][3] = b&0xff;
@@ -826,7 +825,11 @@ public class Demo extends Component implements ActionListener {
         int height = timg.getHeight();
         int[][][] ImageArray = convertToArray(timg);          //  Convert the image to array
         // Image Negative Operation:
-        int k = 5; // 0,1,2,3...7
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose a bit to slice");
+        int k;
+        k = scanner.nextInt();
+        // 0,1,2,3...7
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int r = ImageArray[x][y][1];
@@ -1773,17 +1776,16 @@ public class Demo extends Component implements ActionListener {
                 return;
             case 23: biFiltered = addSaltAndPepper(bi); /* adding salt and pepper on image */
                 return;
-            case 24: biFiltered = RegionOfInterestComb(bi); /* ROI with multiple filter on image */
-            case 25: /* combining two filters together */
+            case 24: /* combining two filters together */
                 if(undoList.size()-2>=0) {
                     biFiltered = combineFilters(bi, undoList.get(undoList.size() - 2));
                     return;
                 }
-            case 26: biFiltered = histogramMeanStd(bi); /* mean and standard deviation of image */
+            case 25: biFiltered = histogramMeanStd(bi); /* mean and standard deviation of image */
                 return;
-            case 27: biFiltered = simpleThresholding(bi); /* simple thresholding */
+            case 26: biFiltered = simpleThresholding(bi); /* simple thresholding */
                 return;
-            case 28: biFiltered = automatedThresh(bi); /* automated thresholding */
+            case 27: biFiltered = automatedThresh(bi); /* automated thresholding */
             return;
         }
 
