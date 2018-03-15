@@ -39,14 +39,14 @@ detection:
 5. Roberts 1 and 2
 6. Sobel x and y
 
-**Week 7:**:
+**Week 7:**
 1. Salt-and-Pepper Noise adding
 2. Min Filtering
 3. Max Filtering
 4. Midpoint Filtering
 5. Median Filtering
 
-**Week 8:**:
+**Week 8:**
 1. Mean and standard deviation of an image
 2. Simple thresholding
 3. Automated thresholding
