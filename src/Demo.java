@@ -203,108 +203,95 @@ public class Demo extends Component implements ActionListener {
     //************************************
 
 
+    //************************************
+    // Read a .raw image file
+    //************************************
     private BufferedImage readRawImage(String imageFilePath )
     {
         try
         {
-
-            // create a stream obj. to read in bytes from .raw file
+            // read in bytes from .raw file
             FileInputStream fileToRead = new FileInputStream( imageFilePath );
-
             int i     = 0;
             int total = 0;
             int nRead ;
-
-            /* initialise a new byte array to store each line ( 512 x 512 ) */
+            // byte array to store each line ( 512 x 512 )
             byte[] buffer = new byte[ 512 ];
 
-            /* initialise a new string array to store each line ( 512 x 512 ) */
+            // new string array to store each line ( 512 x 512 )
             String[] imageData = new String[ 512 ];
-
-
-            // the .read(buffer b) method fills buffer with data ( reads <= b.length of data into buffer )
+            // fill imageDate with buffer data
             while( ( nRead = fileToRead.read(buffer) ) != -1 )
             {
-
-                //System.out.println( new String( buffer ) );
-
                 imageData[i++] = Arrays.toString(buffer);
                 total = total + nRead;
-
             }
-
-            return convertToBimage(( parseImage( imageData )));
+            // return Image once string data has been converted into int
+            return convertToBimage((parseImage(imageData)));
         }
-
         catch( Exception e )
         {
-
             e.printStackTrace();
             return null;
         }
     }
 
+
+    //************************************
+    //  Parse string buffer of image into an int => this is then converted into an ImageArray
+    //************************************
     private static int[][][] parseImage(String[] stringImageData )
     {
         int x = 0;
-        int y = 0;
+        int y;
+        // three dimensional array with x,y co-ordinates with four channels (Alpha, R,G,B)
         int[][][] imageData = new int[512][512][4];
-
-
         for( String strImageLine : stringImageData )
         {
             int[] intImageLine = parseStringArray( strImageLine );
-            y =0;
-
+            y=0;
+            //iterate through image and initalise the channel values for each pixel coordinate
             for( int pixel : intImageLine )
             {
-                imageData [   y ] [x] [0] = 255;    //a
-
-                imageData[y][x][1] = pixel;  //r
-                imageData[y][x][2] = pixel;  //g
-                imageData[y][x][3] = pixel;  //b
-                y = y + 1;
+                imageData[y][x][0] = 255;    //alpha
+                imageData[y][x][1] = pixel;  //red
+                imageData[y][x][2] = pixel;  //green
+                imageData[y][x][3] = pixel;  //blue
+                y++;
             }
-
             // increment x AND y to move a row down
-            x = x + 1;
-
-
+            x++;
         }
         return imageData;
 
     }
 
-    private static int[] parseStringArray( String line )
+    //************************************
+    // Parse String array into ints
+    //************************************
+    private static int[] parseStringArray(String buffered_string)
     {
-
+        //initialise array of pixel values for one row
         int[] stringsToReturn = new int[ 512 ];
-
-        // check if the line is in the correct format
-        if( line.length() == 0 || line.charAt( 0 ) != '[' || line.charAt( line.length() - 1 ) != ']' )
+        // format checking the values sent
+        if( buffered_string.length() == 0 || buffered_string.charAt( 0 ) != '[' || buffered_string.charAt( buffered_string.length() - 1 ) != ']' )
         {
-
             return new int[]{ -1 };
-
         }
-
-        // cut out the square brackets [] from the string
-        String contents = line.substring( 1 , line.length() - 1 ).trim();
-
-        // split the strings
-        String[] nums = contents.split(", ");
-
+        // remove '[' ']' from array
+        String contents = buffered_string.substring( 1 , buffered_string.length() - 1 ).trim();
+        // split the string by spacing
+        String[] nums = contents.split(" , ");
         // for each integer, replace it with its ABSOLUTE integer counterpart
-        for( int z = 0 ; z < nums.length ; z++ )
+        for( int i = 0 ; i < nums.length ; i++ )
         {
-
-            String temp = nums[z];
-            stringsToReturn[z] = Math.abs( Integer.parseInt( temp ) );
-
+            //current string value
+            String temp = nums[i];
+            //parse string value as Absolute int value
+            stringsToReturn[i] = Math.abs( Integer.parseInt( temp ) );
         }
-        //printIntArray(stringsToReturn);
+        // return parsed array
         return stringsToReturn;
-
     }
 
     //************************************
@@ -376,7 +363,6 @@ public class Demo extends Component implements ActionListener {
         int [] [] [] ImageArray2 = new int[width][height][4];
         int t=5;
         int s = (int) (Math.random() *255);
-        //System.out.println(s);
         int rmin, rmax, gmin, gmax, bmin, bmax;
         rmin = s*(ImageArray1[0][0][1]+t); rmax = rmin;
         gmin = s*(ImageArray1[0][0][2]+t); gmax = gmin;
@@ -422,13 +408,11 @@ public class Demo extends Component implements ActionListener {
                     r = firstImage[x][y][1] += secondImage[x][y][1];
                     g = firstImage[x][y][2] += secondImage[x][y][2];
                     b = firstImage[x][y][3] += secondImage[x][y][3];
-
                     firstImage[x][y][0] = 255;
                     firstImage[x][y][1] = checkBoundary(r);
                     firstImage[x][y][2] = checkBoundary(g);
                     firstImage[x][y][3] = checkBoundary(b);
                 }
-
             }
             undoList.add(convertToBimage(firstImage));
             return convertToBimage(firstImage);
@@ -455,13 +439,11 @@ public class Demo extends Component implements ActionListener {
                     r = secondImage[x][y][1] - firstImage[x][y][1];
                     g = secondImage[x][y][2] - firstImage[x][y][2];
                     b = secondImage[x][y][3] - firstImage[x][y][3];
-
                     firstImage[x][y][0] = 255;
                     firstImage[x][y][1] = checkBoundary(r);
                     firstImage[x][y][2] = checkBoundary(g);
                     firstImage[x][y][3] = checkBoundary(b);
                 }
-
             }
             undoList.add(convertToBimage(firstImage));
             return convertToBimage(firstImage);
@@ -488,13 +470,11 @@ public class Demo extends Component implements ActionListener {
                     r = secondImage[x][y][1] *= firstImage[x][y][1];
                     g = secondImage[x][y][2] *= firstImage[x][y][2];
                     b = secondImage[x][y][3] *= firstImage[x][y][3];
-
                     firstImage[x][y][0] = 255;
                     firstImage[x][y][1] = checkBoundary(r);
                     firstImage[x][y][2] = checkBoundary(g);
                     firstImage[x][y][3] = checkBoundary(b);
                 }
-
             }
             undoList.add(convertToBimage(firstImage));
             return convertToBimage(firstImage);
@@ -520,23 +500,18 @@ public class Demo extends Component implements ActionListener {
                 for (int x = 0; x < first_image_width; x++) {
                     if (firstImage[x][y][1]!=0) {
                         r = secondImage[x][y][1] / firstImage[x][y][1];
-
                         firstImage[x][y][1] = checkBoundary(r);
                     }
                     if (firstImage [x][y][2]!=0) {
                         g = secondImage[x][y][2] / firstImage[x][y][2];
-
                         firstImage[x][y][2] = checkBoundary(g);
                     }
                     if (firstImage[x][y][3]!=0) {
                         b = secondImage[x][y][3] / firstImage[x][y][3];
-
                         firstImage[x][y][3] = checkBoundary(b);
                     }
-
                     firstImage[x][y][0] = 255;
                 }
-
             }
             undoList.add(convertToBimage(firstImage));
             return convertToBimage(firstImage);
@@ -557,9 +532,7 @@ public class Demo extends Component implements ActionListener {
         int width = timg.getWidth();
         int r,g,b;
         for(int y=0;y<height;y++){
-
             for(int x=0;x<width;x++){
-
                 r = ImageArray[x][y][1];
                 g = ImageArray[x][y][2];
                 b = ImageArray[x][y][3];
@@ -591,7 +564,6 @@ public class Demo extends Component implements ActionListener {
             int width = timg.getWidth();
             int r, g, b;
             for(int y=0;y<height;y++) {
-
                 for (int x = 0; x < width; x++) {
                     r = firstImage[x][y][1] & secondImage[x][y][1];
                     g = firstImage[x][y][1] & secondImage[x][y][2];
@@ -611,6 +583,9 @@ public class Demo extends Component implements ActionListener {
     }
 
     @SuppressWarnings("Duplicates")
+    //************************************
+    //Combine two filters (previous image + current image)
+    //************************************
     private BufferedImage combineFilters(BufferedImage timg, BufferedImage timg2) {
         try {
             BufferedImage bi2 = timg2;
@@ -660,7 +635,6 @@ public class Demo extends Component implements ActionListener {
                     firstImage[x][y][2] = g;
                     firstImage[x][y][3] = b;
                 }
-
             }
             undoList.add(convertToBimage(firstImage));
             return convertToBimage(firstImage);
@@ -668,7 +642,6 @@ public class Demo extends Component implements ActionListener {
         catch (IOException e){
             return null;
         }
-
     }
 
 
@@ -704,10 +677,12 @@ public class Demo extends Component implements ActionListener {
 
     }
 
+    //************************************
+    //Combine region of interest with filter(s)
+    //************************************
     private BufferedImage RegionOfInterestComb(BufferedImage timg)
     {
         // x min limit as 80 and x max as 150 , y min = 50, ymax = 100 = face region
-
         int width = timg.getWidth();
         int height = timg.getHeight();
         int[][][] ImageArray = convertToArray(timg);
@@ -717,13 +692,11 @@ public class Demo extends Component implements ActionListener {
             {
                 if (!(x > 80 && x < 150 && y > 50 && y < 100))
                 {
-
                     ImageArray[x][y][0] = 0;
                     ImageArray[x][y][1] = 0;
                     ImageArray[x][y][2] = 0;
                     ImageArray[x][y][3]=  0;
                 }
-
             }
         }
         undoList.add(convertToBimage(ImageArray));
@@ -788,10 +761,8 @@ public class Demo extends Component implements ActionListener {
         double p = 0.4;
         for(int k=0; k<=255; k++) {
             LUT[k] = (int) (Math.pow(255, 1 - p) * Math.pow(k, p));
-
-
-
         }}
+
 
     //************************************
     // Using the generated LUT
@@ -821,40 +792,47 @@ public class Demo extends Component implements ActionListener {
     //Perform bit plane slicing
     //************************************
     private BufferedImage bitplaneslice(BufferedImage timg){
-        int width = timg.getWidth();
-        int height = timg.getHeight();
-        int[][][] ImageArray = convertToArray(timg);          //  Convert the image to array
-        // Image Negative Operation:
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose a bit to slice");
-        int k;
-        k = scanner.nextInt();
-        // 0,1,2,3...7
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int r = ImageArray[x][y][1];
-                int g = ImageArray[x][y][2];
-                int b = ImageArray[x][y][3];
+        try {
+            int width = timg.getWidth();
+            int height = timg.getHeight();
+            int[][][] ImageArray = convertToArray(timg); //  Convert the image to array
+            // Image Negative Operation:
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Choose a bit to slice");
+            int k;
+            k = scanner.nextInt();
+            // 0,1,2,3...7
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int r = ImageArray[x][y][1];
+                    int g = ImageArray[x][y][2];
+                    int b = ImageArray[x][y][3];
 
-                ImageArray[x][y][1] = (r >> k) & 1;
-                ImageArray[x][y][2] = (g >> k) & 1;
-                ImageArray[x][y][3] = (b >> k) & 1;
+                    ImageArray[x][y][1] = (r >> k) & 1;
+                    ImageArray[x][y][2] = (g >> k) & 1;
+                    ImageArray[x][y][3] = (b >> k) & 1;
 
-                if (ImageArray[x][y][1] == 1) {
-                    ImageArray[x][y][1] = 255;
-                }
+                    if (ImageArray[x][y][1] == 1) {
+                        ImageArray[x][y][1] = 255;
+                    }
 
-                if (ImageArray[x][y][2] == 1) {
-                    ImageArray[x][y][2] = 255;
-                }
+                    if (ImageArray[x][y][2] == 1) {
+                        ImageArray[x][y][2] = 255;
+                    }
 
-                if (ImageArray[x][y][3] == 1) {
-                    ImageArray[x][y][3] = 255;
+                    if (ImageArray[x][y][3] == 1) {
+                        ImageArray[x][y][3] = 255;
+                    }
                 }
             }
+            undoList.add(convertToBimage(ImageArray));
+            return convertToBimage(ImageArray);
         }
-        undoList.add(convertToBimage(ImageArray));
-        return convertToBimage(ImageArray);
+        catch (NumberFormatException e)
+        {
+            System.out.println("Choose a number!!!");
+            return null;
+        }
     }
     //************************************
     //Find histogram, normalise and equalise
@@ -865,7 +843,6 @@ public class Demo extends Component implements ActionListener {
         int height = timg.getHeight();
 
         int[][][] ImageArray = convertToArray(timg);
-
         double[] redHistogram = new double[256];
         double[] greenHistogram = new double[256];
         double[] blueHistogram = new double[256];
@@ -878,7 +855,6 @@ public class Demo extends Component implements ActionListener {
         double[] valueToApplyR = new double[256];
         double[] valueToApplyG = new double[256];
         double[] valueToApplyB = new double[256];
-
         double cumR = 0;
         double cumG = 0;
         double cumB = 0;
@@ -1439,7 +1415,6 @@ public class Demo extends Component implements ActionListener {
         System.out.println("Mean value of green: " + greenMean);
         System.out.println("Mean value of blue: " + blueMean);
 
-        //System.out.println("--------------------------------------------");
 
         double redVarianceSum = 0;
         double greenVarianceSum = 0;
@@ -1564,8 +1539,6 @@ public class Demo extends Component implements ActionListener {
          when the difference between the current thresh value and previous
          value is less than 1
          break out of the loop
-
-
          */
 
         while (true) {
@@ -1670,6 +1643,7 @@ public class Demo extends Component implements ActionListener {
                 break;
             }
         }
+
         //Iterate through image and segment using the calculated thresh value
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -1691,7 +1665,6 @@ public class Demo extends Component implements ActionListener {
                 } else if (b < thresh_b) {
                     b = 0;
                 }
-
                 ImageArray[x][y][1] = checkBoundary(r);
                 ImageArray[x][y][2] = checkBoundary(g);
                 ImageArray[x][y][3] = checkBoundary(b);
@@ -1702,8 +1675,6 @@ public class Demo extends Component implements ActionListener {
         return convertToBimage(ImageArray);
 
     }
-
-
 
 
     private int checkBoundary(int colourValue){
@@ -1793,7 +1764,6 @@ public class Demo extends Component implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         JComboBox cb = (JComboBox)e.getSource();
-
         if (cb.getActionCommand().equals("SetFilter")) {
             setOpIndex(cb.getSelectedIndex());
             repaint();
@@ -1843,14 +1813,11 @@ public class Demo extends Component implements ActionListener {
             big.drawImage(bi3, 0, 0, null);
             this.biFiltered = this.bi = bi3;
             this.repaint();
-
         }
         catch (Exception e){
             //e.printStackTrace();
             System.out.println("No filter added");
              }
-
-
     }
 
     private void reset(){
