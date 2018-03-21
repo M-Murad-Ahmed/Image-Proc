@@ -57,7 +57,7 @@ public class Demo extends Component implements ActionListener {
             System.out.println("Read 1)original or 2)raw ?");
             int switcher = scanner.nextInt();
             if(switcher==1) {
-                this.filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//cameraman.bmp";
+                this.filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//baboonrgb.bmp";
                 bi = ImageIO.read(new File(this.filepath));
                 //System.out.println(bi);
                 w = bi.getWidth(null);
@@ -73,8 +73,8 @@ public class Demo extends Component implements ActionListener {
                 }
             }
             else {
-                filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//Baboon.raw";
-                bi = readRawImage(filepath);
+                filepath = "/Users/muradahmed/IdeaProjects/ImageProcessing/src//baboon.raw";
+                bi = rawImage(filepath);
                 w = bi.getWidth(null);
                 h = bi.getHeight(null);
                 System.out.println(bi.getType());
@@ -203,104 +203,73 @@ public class Demo extends Component implements ActionListener {
     //************************************
 
 
-    //************************************
-    // Read a .raw image file
-    //************************************
-    private BufferedImage readRawImage(String imageFilePath )
+    public BufferedImage rawImage(String file)
     {
+
         try
         {
-            // read in bytes from .raw file
-            FileInputStream fileToRead = new FileInputStream( imageFilePath );
-            int i     = 0;
-            int total = 0;
-            int nRead ;
-            // byte array to store each line ( 512 x 512 )
-            byte[] buffer = new byte[ 512 ];
-
-            // new string array to store each line ( 512 x 512 )
-            String[] imageData = new String[ 512 ];
-            // fill imageDate with buffer data
-            while( ( nRead = fileToRead.read(buffer) ) != -1 )
+            File rawFile = new File(file);
+            FileInputStream inputStream = new FileInputStream(file);
+            int i = 0, readBuffer = 0;
+            byte[] buffer = new byte[512];
+            String[] ImageData = new String[512];
+            while( ( readBuffer = inputStream.read(buffer) ) != -1 )
             {
-                imageData[i++] = Arrays.toString(buffer);
-                total = total + nRead;
+                ImageData[i++] = Arrays.toString(buffer);
             }
-            // return Image once string data has been converted into int
-            return convertToBimage((parseImage(imageData)));
+            return convertToBimage((convertImageData(ImageData)));
         }
         catch( Exception e )
         {
+            System.out.println("error");
             e.printStackTrace();
             return null;
         }
     }
 
-
-    //************************************
-    //  Parse string buffer of image into an int => this is then converted into an ImageArray
-    //************************************
-    private static int[][][] parseImage(String[] stringImageData )
+    public static int[][][] convertImageData(String[] ImageData)
     {
         int x = 0;
-        int y;
-        // three dimensional array with x,y co-ordinates with four channels (Alpha, R,G,B)
-        int[][][] imageData = new int[512][512][4];
-        for( String strImageLine : stringImageData )
+        int y = 0;
+        int[][][] imageArray = new int[512][512][4];
+        for( String lineImageData : ImageData )
         {
-            int[] intImageLine = parseStringArray( strImageLine );
-            y=0;
-            //iterate through image and initalise the channel values for each pixel coordinate
-            for( int pixel : intImageLine )
+            int[] imageLine = convertIntoInt(lineImageData);
+            y =0;
+            for( int rgb : imageLine )
             {
-                imageData[y][x][0] = 255;    //alpha
-                imageData[y][x][1] = pixel;  //red
-                imageData[y][x][2] = pixel;  //green
-                imageData[y][x][3] = pixel;  //blue
+                imageArray[y][x][0] = 255;    //a
+                imageArray[y][x][1] = rgb;  //r
+                imageArray[y][x][2] = rgb;  //g
+                imageArray[y][x][3] = rgb;  //b
                 y++;
             }
-            // increment x AND y to move a row down
             x++;
         }
-        return imageData;
-
+        return imageArray;
     }
 
-    //************************************
-    // Parse String array into ints
-    //************************************
-    private static int[] parseStringArray(String buffered_string)
+    public static int[] convertIntoInt(String line)
     {
-        //initialise array of pixel values for one row
-        int[] stringsToReturn = new int[ 512 ];
-        // format checking the values sent
-        if( buffered_string.length() == 0 || buffered_string.charAt( 0 ) != '[' || buffered_string.charAt( buffered_string.length() - 1 ) != ']' )
+        int[] intImageData = new int[512];
+        if( line.length() == 0 || line.charAt(0) != '[' || line.charAt(line.length() - 1 ) != ']')
         {
-            return new int[]{ -1 };
+            return new int[]{-1};
         }
-        // remove '[' ']' from array
-        String contents = buffered_string.substring( 1 , buffered_string.length() - 1 ).trim();
-        // split the string by spacing
-        String[] nums = contents.split(" , ");
-        // for each integer, replace it with its ABSOLUTE integer counterpart
-        for( int i = 0 ; i < nums.length ; i++ )
+        String[] nums = (line.substring(1,line.length()-1).trim()).split(", ");
+        for(int z = 0;z<nums.length;z++)
         {
-            //current string value
-            String temp = nums[i];
-            //parse string value as Absolute int value
-            stringsToReturn[i] = Math.abs( Integer.parseInt( temp ) );
+            intImageData[z] = Math.abs(Integer.parseInt(nums[z]));
         }
-        // return parsed array
-        return stringsToReturn;
+        return intImageData;
     }
-
     //************************************
     //  RESCALE PIXEL VALUES
     //************************************
     private BufferedImage Rescale(BufferedImage timg){
         int width = timg.getWidth();
         int height = timg.getHeight();
-        float scale = 2;
+        float scale = 1;
         int [][][] ImageArray = convertToArray(timg);
         int r,g,b;
 
@@ -499,15 +468,15 @@ public class Demo extends Component implements ActionListener {
             for (int y = 0; y < first_image_height; y++) {
                 for (int x = 0; x < first_image_width; x++) {
                     if (firstImage[x][y][1]!=0) {
-                        r = secondImage[x][y][1] / firstImage[x][y][1];
+                        r = firstImage[x][y][1]/secondImage[x][y][1] ;
                         firstImage[x][y][1] = checkBoundary(r);
                     }
                     if (firstImage [x][y][2]!=0) {
-                        g = secondImage[x][y][2] / firstImage[x][y][2];
+                        g =firstImage[x][y][2]/ secondImage[x][y][2] ;
                         firstImage[x][y][2] = checkBoundary(g);
                     }
                     if (firstImage[x][y][3]!=0) {
-                        b = secondImage[x][y][3] / firstImage[x][y][3];
+                        b =firstImage[x][y][3] /secondImage[x][y][3] ;
                         firstImage[x][y][3] = checkBoundary(b);
                     }
                     firstImage[x][y][0] = 255;
@@ -690,7 +659,7 @@ public class Demo extends Component implements ActionListener {
         {
             for(int x =0; x<width; x++)
             {
-                if (!(x > 80 && x < 150 && y > 50 && y < 100))
+                if (!(x > 90 && x < 160 && y > 50 && y < 100))
                 {
                     ImageArray[x][y][0] = 0;
                     ImageArray[x][y][1] = 0;
@@ -758,9 +727,9 @@ public class Demo extends Component implements ActionListener {
     //************************************
     private static void GenerateLookUpTable(){
         LUT = new int[256];
-        double p = 0.4;
+        Random r = new Random();
         for(int k=0; k<=255; k++) {
-            LUT[k] = (int) (Math.pow(255, 1 - p) * Math.pow(k, p));
+            LUT[k] = r.nextInt(255);
         }}
 
 
