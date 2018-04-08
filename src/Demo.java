@@ -1422,7 +1422,7 @@ public class Demo extends Component implements ActionListener {
 
         int[][][] ImageArray = convertToArray(timg);
 
-        int threshV = 70;//variation from 0-255
+        int threshV = 150;//variation from 0-255
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
